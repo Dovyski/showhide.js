@@ -42,7 +42,7 @@ var SH = {
     },
 
     init: function() {
-        var aElements = document.querySelectorAll("*[data-sh-show], *[data-sh-hide]");
+        var aElements = document.querySelectorAll("*[data-sh-show], *[data-sh-hide], *[data-sh-toggle]");
 
         if(aElements.length == 0) {
             return;
@@ -51,7 +51,7 @@ var SH = {
         aElements.forEach(e => {
             if(e.type == "select-one") {
                 e.addEventListener("change", SH.handleOnChange);
-                SH.handleOnChange({target: e});
+                SH.handleOnChange({currentTarget: e});
             } else {
                 e.addEventListener("click", SH.handleOnClick);
             }
@@ -59,11 +59,11 @@ var SH = {
     },
 
     handleOnChange: function(theEvent) {
-        var aElement = theEvent.target;
+        var aElement = theEvent.currentTarget;
         var aValue = (aElement.value || aElement.options[aElement.selectedIndex].value);
         var aData = aElement.dataset;
 
-        SH.handleOnClick({target: aElement});
+        SH.handleOnClick({currentTarget: aElement});
 
         if(aData.shHideUsingValue) {
             SH.applyDisplayStyle(aValue, "none");
@@ -75,8 +75,12 @@ var SH = {
     },
 
     handleOnClick: function(theEvent) {
-        var aElement = theEvent.target;
+        var aElement = theEvent.currentTarget;
         var aData = aElement.dataset;
+ 
+        if(aData.shToggle) {
+            SH.applyToggleDisplayStyle(aData.shToggle, aData.shToggleShow, aData.shToggleHide);
+        }
 
         if(aData.shHide) {
             SH.applyDisplayStyle(aData.shHide, "none");
@@ -84,6 +88,22 @@ var SH = {
 
         if(aData.shShow) {
             SH.applyDisplayStyle(aData.shShow, "block");
+        }
+    },
+
+    addClass:function(theElement, theClass) {
+        if (theElement.classList) {
+            theElement.classList.add(theClass);
+        } else {
+            theElement.className += " " + theClass;
+        }
+    },
+
+    removeClass:function(theElement, theClass) {
+        if (theElement.classList) {
+            theElement.classList.remove(theClass);
+        } else {
+            // TODO: implement this!
         }
     },
 
@@ -96,6 +116,28 @@ var SH = {
 
         aElements.forEach(e => {
             e.style.display = theDisplayStyle;
+        });
+    },
+
+    applyToggleDisplayStyle: function(theQuery, theShowQuery, theHideQuery) {
+        if(!theQuery) {
+            return;
+        }
+
+        var aShowQuery = theShowQuery || "";
+        var aHideQuery = theHideQuery || "";
+        var aElements = document.querySelectorAll(theQuery);
+
+        aElements.forEach(e => {
+            if(e.style.display == "none") {
+                e.style.display = "block";
+                SH.applyDisplayStyle(aShowQuery, "");
+                SH.applyDisplayStyle(aHideQuery, "none");
+            } else {
+                e.style.display = "none";
+                SH.applyDisplayStyle(aShowQuery, "none");
+                SH.applyDisplayStyle(aHideQuery, "");
+            }
         });
     },
 };
