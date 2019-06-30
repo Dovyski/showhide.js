@@ -7,21 +7,55 @@
 
     <style type="text/css">
         .dynamic {
-            background: red;
             width: 100px;
             height: 100px;
             display: none;
             padding: 20px;
             margin: 40px;
         }
+        .red {
+            background: red;
+        }
+        .yellow {
+            background: yellow;
+        }
+        .blue {
+            background: blue;
+        }
     </style>
 </head>
 
 <body>
-    <a href="javascript:void(0);" data-sh-show=".dynamic">Show</a>
-    <a href="javascript:void(0);" data-sh-hide=".dynamic">Hide</a>
+    <p>
+        Red element:
+        <a href="javascript:void(0);" data-sh-show=".dynamic.red">Show</a>
+        <a href="javascript:void(0);" data-sh-hide=".dynamic.red">Hide</a>
+    </p>
+
+    <p>
+        Yellow element:
+        <a href="javascript:void(0);" data-sh-show=".dynamic.yellow">Show</a>
+        <a href="javascript:void(0);" data-sh-hide=".dynamic.yellow">Hide</a>
+    </p>
+
+    <p>
+        All elements:
+        <a href="javascript:void(0);" data-sh-show=".dynamic">Show</a>
+        <a href="javascript:void(0);" data-sh-hide=".dynamic">Hide</a>
     
-    <div class="dynamic">Hello world!</div>
+        What is visible:
+        <select data-sh-hide=".dynamic" data-sh-show-using-value="true">
+            <option value="">None</option>
+            <option value=".red">Red</option>
+            <option value=".yellow">Yellow</option>
+            <option value=".blue">Blue</option>
+            <option value=".dynamic">All</option>
+        </select>
+    </p>
+    
+    <div class="dynamic red">.dynamic .red</div>
+    <div class="dynamic yellow">.dynamic .yellow</div>
+    <div class="dynamic blue">.dynamic .blue</div>
 
     <script src="../showhide.js"></script>
 </body>

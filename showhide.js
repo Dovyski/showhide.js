@@ -49,18 +49,41 @@ var SH = {
         }
 
         aElements.forEach(e => {
-            e.addEventListener("click", SH.handleOnClick);
+            if(e.type == "select-one") {
+                e.addEventListener("change", SH.handleOnChange);
+                SH.handleOnChange({target: e});
+            } else {
+                e.addEventListener("click", SH.handleOnClick);
+            }
         });
+    },
+
+    handleOnChange: function(theEvent) {
+        var aElement = theEvent.target;
+        var aValue = (aElement.value || aElement.options[aElement.selectedIndex].value);
+        var aData = aElement.dataset;
+
+        SH.handleOnClick({target: aElement});
+
+        if(aData.shHideUsingValue) {
+            SH.applyDisplayStyle(aValue, "none");
+        }
+
+        if(aData.shShowUsingValue) {
+            SH.applyDisplayStyle(aValue, "block");
+        }
     },
 
     handleOnClick: function(theEvent) {
         var aElement = theEvent.target;
         var aData = aElement.dataset;
 
+        if(aData.shHide) {
+            SH.applyDisplayStyle(aData.shHide, "none");
+        }
+
         if(aData.shShow) {
             SH.applyDisplayStyle(aData.shShow, "block");
-        } else if(aData.shHide) {
-            SH.applyDisplayStyle(aData.shHide, "none");
         }
     },
 
