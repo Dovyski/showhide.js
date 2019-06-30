@@ -1,0 +1,28 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Basic example - showhide.js</title>
+
+    <style type="text/css">
+        .dynamic {
+            background: red;
+            width: 100px;
+            height: 100px;
+            display: none;
+            padding: 20px;
+            margin: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="javascript:void(0);" data-sh-show=".dynamic">Show</a>
+    <a href="javascript:void(0);" data-sh-hide=".dynamic">Hide</a>
+    
+    <div class="dynamic">Hello world!</div>
+
+    <script src="../showhide.js"></script>
+</body>
+</html>

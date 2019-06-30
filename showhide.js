@@ -37,18 +37,44 @@ var SH = {
         if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
             SH.init();
         } else {
-            document.addEventListener('DOMContentLoaded', SH.init);
+            document.addEventListener("DOMContentLoaded", SH.init);
         }
     },
 
     init: function() {
-        var aElements = document.querySelectorAll('*[data-sh-show]');
-        console.log(aElements);
+        var aElements = document.querySelectorAll("*[data-sh-show], *[data-sh-hide]");
+
+        if(aElements.length == 0) {
+            return;
+        }
+
+        aElements.forEach(e => {
+            e.addEventListener("click", SH.handleOnClick);
+        });
     },
 
-    show: function() {
+    handleOnClick: function(theEvent) {
+        var aElement = theEvent.target;
+        var aData = aElement.dataset;
 
-    }
+        if(aData.shShow) {
+            SH.applyDisplayStyle(aData.shShow, "block");
+        } else if(aData.shHide) {
+            SH.applyDisplayStyle(aData.shHide, "none");
+        }
+    },
+
+    applyDisplayStyle: function(theQuery, theDisplayStyle) {
+        if(!theQuery) {
+            return;
+        }
+
+        var aElements = document.querySelectorAll(theQuery);
+
+        aElements.forEach(e => {
+            e.style.display = theDisplayStyle;
+        });
+    },
 };
 
 SH.ready();
