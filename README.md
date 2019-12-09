@@ -1,3 +1,7 @@
+<p align="center">
+    <img width="1000" height="400" src=".github/logo.png" title="Showhide.js logo"><br />
+</p>
+
 # showhide.js
 
 Showhide.js is a small and extremely simple, dependency-free library to show and hide elements conditionally based on HTML data attributes. It is quite useful to create simple interactions on pages without much hassle, which is ideal for prototyping. 
