@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="1000" height="400" src=".github/logo.png" title="Showhide.js logo"><br />
+    <img src=".github/logo.png" title="Showhide.js logo"><br />
 </p>
 
 # showhide.js
